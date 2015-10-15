@@ -34,13 +34,17 @@ class HTTY::CLI::Commands::HistoryVerbose < HTTY::CLI::Command
     requests = session.requests
     number_width = Math.log10(requests.length).to_i + 1
     displayed_one = false
-    requests.each_with_index do |request, index|
+
+    index = 1
+
+    requests.each do |request|
       next unless request.response
 
       puts(strong('-' * 80)) if displayed_one
       displayed_one = true
 
-      number = (index + 1).to_s.rjust(number_width)
+      number = index.to_s.rjust(number_width)
+      index += 1
       print "#{strong number} "
       show_request request
 
